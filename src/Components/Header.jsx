@@ -12,8 +12,8 @@ export const Header = () => {
         </Text>
       </Wrap>
       <Wrap align="center">
-        <Text fontSize="3xl">Welcome, </Text>
-        <Text fontSize="3xl" fontWeight="bold" color="#e35933">
+        <Text fontSize="2xl">Welcome, </Text>
+        <Text fontSize="2xl" fontWeight="bold" color="#e35933">
           Tushar
         </Text>
       </Wrap>
