@@ -24,13 +24,17 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { AppContext } from "../Context/AppContext";
+import { LoginContext } from "../Context/LoginContext";
 import { v4 as uuidv4 } from "uuid";
 
 export const Navbar = () => {
   const { dispatch } = useContext(AppContext);
+  const { handleLogin } = useContext(LoginContext);
 
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
+  const [due, setDue] = useState("");
+  const [duration, setDuration] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSubmit = (event) => {
@@ -39,8 +43,10 @@ export const Navbar = () => {
 
     const expense = {
       id: uuidv4(),
-      name: name,
+      name,
       cost: parseInt(cost),
+      due,
+      duration,
     };
 
     dispatch({
@@ -88,11 +94,21 @@ export const Navbar = () => {
 
               <FormControl mt={4}>
                 <FormLabel>When You have to Pay / Paid</FormLabel>
-                <Input placeholder="Due" />
+                <Input
+                  placeholder="Due"
+                  required="required"
+                  type="text"
+                  onChange={(event) => setDue(event.target.value)}
+                />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Duration</FormLabel>
-                <Input placeholder="Duration  (i.e. monthly, one time or any other)" />
+                <Input
+                  placeholder="Duration  (i.e. monthly, one time or any other)"
+                  required="required"
+                  type="text"
+                  onChange={(event) => setDuration(event.target.value)}
+                />
               </FormControl>
             </ModalBody>
             <ModalFooter>
@@ -131,10 +147,16 @@ export const Navbar = () => {
           <PopoverHeader>Do you want to Logout ? </PopoverHeader>
           <PopoverCloseButton />
           <PopoverBody display="flex" justifyContent="space-evenly">
-            <Button colorScheme="orange" variant="outline">
+            <Button
+              colorScheme="orange"
+              variant="outline"
+              onClick={handleLogin}
+            >
               Logout
             </Button>
-            <Button colorScheme="orange">Cancel</Button>
+            <Button colorScheme="orange" onClick={onClose}>
+              Cancel
+            </Button>
           </PopoverBody>
         </PopoverContent>
       </Popover>

@@ -18,6 +18,8 @@ export const ExpenseList = () => {
             id={expense.id}
             name={expense.name}
             cost={expense.cost}
+            due={expense.due}
+            duration={expense.duration}
           />
         );
       })}

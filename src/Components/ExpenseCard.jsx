@@ -52,8 +52,8 @@ export const ExpenseCard = (props) => {
             fontSize="md"
             px="3"
           >
-            <Text>Monthly</Text>
-            <Text>due tomorrow</Text>
+            <Text>{props.due}</Text>
+            <Text>{props.duration}</Text>
           </Wrap>
         </Flex>
       </PopoverTrigger>
@@ -74,7 +74,6 @@ export const ExpenseCard = (props) => {
           <Button colorScheme="orange" variant="outline">
             Modify
           </Button>
-          <Button colorScheme="orange">Cancel</Button>
         </PopoverBody>
       </PopoverContent>
     </Popover>
