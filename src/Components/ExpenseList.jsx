@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ExpenseCard } from "./ExpenseCard";
 import { SimpleGrid, Text } from "@chakra-ui/react";
+import { AppContext } from "../Context/AppContext";
 
 export const ExpenseList = () => {
+  const { expenses } = useContext(AppContext);
+
   return (
     <SimpleGrid>
       <Text fontSize="xl" fontWeight="light" px="6" py="4">
         Recent Expenses
       </Text>
-      <ExpenseCard />
-      <ExpenseCard />
-      <ExpenseCard />
-      <ExpenseCard />
-      <ExpenseCard />
+      {expenses.map((expense) => {
+        return (
+          <ExpenseCard
+            key={expense.id}
+            id={expense.id}
+            name={expense.name}
+            cost={expense.cost}
+          />
+        );
+      })}
     </SimpleGrid>
   );
 };

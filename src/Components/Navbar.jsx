@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Heading,
   WrapItem,
@@ -23,9 +23,31 @@ import {
   PopoverContent,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
+import { AppContext } from "../Context/AppContext";
+import { v4 as uuidv4 } from "uuid";
 
 export const Navbar = () => {
+  const { dispatch } = useContext(AppContext);
+
+  const [name, setName] = useState("");
+  const [cost, setCost] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // console.log(name, cost);
+
+    const expense = {
+      id: uuidv4(),
+      name: name,
+      cost: parseInt(cost),
+    };
+
+    dispatch({
+      type: "ADD_EXPENSE",
+      payload: expense,
+    });
+  };
 
   return (
     <Wrap justify="space-between" align="center" px="6" pt="4" pb="7">
@@ -40,33 +62,58 @@ export const Navbar = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent border="1px solid white">
-          <ModalHeader>Enter the Expense</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>Expense Name</FormLabel>
-              <Input placeholder=" Expense Name" />
-            </FormControl>
+          <form onSubmit={handleSubmit}>
+            <ModalHeader>Enter the Expense</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
+              <FormControl>
+                <FormLabel>Expense Name</FormLabel>
+                <Input
+                  placeholder=" Expense Name"
+                  required="required"
+                  type="text"
+                  onChange={(event) => setName(event.target.value)}
+                />
+              </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel>Amount</FormLabel>
-              <Input placeholder="Amount" />
-            </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Amount</FormLabel>
+                <Input
+                  placeholder="Amount"
+                  required="required"
+                  type="text"
+                  onChange={(event) => setCost(event.target.value)}
+                />
+              </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel>When You have to Pay / Paid</FormLabel>
-              <Input placeholder="Due" />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Duration</FormLabel>
-              <Input placeholder="Duration  (i.e. monthly, one time or any other)" />
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="orange" mr={3} onClick={onClose}>
-              Submit
-            </Button>
-          </ModalFooter>
+              <FormControl mt={4}>
+                <FormLabel>When You have to Pay / Paid</FormLabel>
+                <Input placeholder="Due" />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Duration</FormLabel>
+                <Input placeholder="Duration  (i.e. monthly, one time or any other)" />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                colorScheme="orange"
+                mr={3}
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                colorScheme="orange"
+                mr={3}
+                type="submit"
+                onClick={onClose}
+              >
+                Submit
+              </Button>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
 

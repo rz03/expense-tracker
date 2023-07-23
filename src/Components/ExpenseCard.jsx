@@ -13,7 +13,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-export const ExpenseCard = () => {
+export const ExpenseCard = (props) => {
   return (
     <Popover>
       <PopoverTrigger>
@@ -32,8 +32,8 @@ export const ExpenseCard = () => {
             fontSize="2xl"
             px="3"
           >
-            <Text>Rent</Text>
-            <Text>₹5000</Text>
+            <Text>{props.name}</Text>
+            <Text>₹{props.cost}</Text>
           </Wrap>
           <Wrap
             justify="space-between"
