@@ -3,12 +3,22 @@ import { Wrap, Text, Flex } from "@chakra-ui/react";
 import { SunIcon } from "@chakra-ui/icons";
 
 export const Header = () => {
+  const date = new Date();
+  const time = date.getHours();
+
+  let greet = "Good Evening";
+  if (time >= 4 && time < 12) {
+    greet = "Good Morning";
+  }
+  if (time >= 12 && time < 16) {
+    greet = "Good Afternoon";
+  }
   return (
     <Flex align="center" justify="space-between" pl="6" pr="6">
       <Wrap align="center">
         <SunIcon />
         <Text fontSize="md" fontWeight="light">
-          Good Morning
+          {greet}
         </Text>
       </Wrap>
       <Wrap align="center">

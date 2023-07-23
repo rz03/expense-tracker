@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Text,
   Flex,
@@ -12,8 +12,18 @@ import {
   PopoverBody,
   Button,
 } from "@chakra-ui/react";
+import { AppContext } from "../Context/AppContext";
 
 export const ExpenseCard = (props) => {
+  const { dispatch } = useContext(AppContext);
+
+  const handleDeleteExpense = () => {
+    dispatch({
+      type: "DELETE_EXPENSE",
+      payload: props.id,
+    });
+  };
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -54,7 +64,11 @@ export const ExpenseCard = (props) => {
           Do You want to Modify or Delete the expense ?
         </PopoverHeader>
         <PopoverBody display="flex" justifyContent="space-evenly">
-          <Button colorScheme="orange" variant="outline">
+          <Button
+            colorScheme="orange"
+            variant="outline"
+            onClick={handleDeleteExpense}
+          >
             Delete
           </Button>
           <Button colorScheme="orange" variant="outline">

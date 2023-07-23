@@ -8,6 +8,7 @@ export const Total = () => {
   const totalExpense = expenses.reduce((total, item) => {
     return (total += item.cost);
   }, 0);
+
   return (
     <Flex p="6" mt="4" flexDirection="column" align="center">
       <Wrap align="center">
